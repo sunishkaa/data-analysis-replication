@@ -18,7 +18,7 @@ skimr::skim(d)
 novel_vars = c("Novel_LN_TimeToOrient", "Novel_LN_Approach",
                       "Novel_LN_Near5", "Novel_LN_NearandOriented")
 d_novel = d %>% 
-  select(novel_vars) 
+  dplyr::select(novel_vars) 
 novel_pca = prcomp(d_novel, scale = TRUE)
 
 #to get PC1 eigenvalue and % variance, I used the summary() function
@@ -44,7 +44,7 @@ d = d %>% mutate(novel_PC1_scores = novel_PC1_scores)
 
 barrier_vars = c("Barrier_LN_FirstBout", "Barrier_LN_Apex", "Barrier_LN_EtoB")
 d_barrier = d %>% 
-  select(all_of(barrier_vars))
+  dplyr::select(all_of(barrier_vars))
 barrier_pca = prcomp(d_barrier, scale = TRUE)
 barrier_pca
 
@@ -74,11 +74,7 @@ d = d %>% mutate(barrier_PC1_scores = barrier_PC1_scores)
 # response to novel object - measured by d$novel_PC1_scores
 # persistence - measured by d$barrier_PC1_scores
 
-cor.test(d$LN_Emerge_Average*(-1), d$novel_PC1_scores, method = "pearson")
 
-cor.test(d$LN_Emerge_Average*(-1), d$barrier_PC1_scores, method = "pearson")
-
-cor.test(d$novel_PC1_scores, d$barrier_PC1_scores, method = "pearson")
 
 #then, from section: "Is initial and reversal learning performance predicted by response to a novel object, boldness and/or persistence?"
 #these were not a figure
